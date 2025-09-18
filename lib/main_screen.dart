@@ -9,24 +9,25 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final Map<String, int> counterMap = {
+  final Map<String, int> _counterMap = {
     'counter1': 0,
     'counter2': 0,
     'counter3': 0,
     'counter4': 0,
     'counter5': 0
   };
-  int get sum => counterMap.values.reduce((value, element) => value + element);
+  int get _sum =>
+      _counterMap.values.reduce((value, element) => value + element);
 
-  void updateCounterMap(int index, int counter) {
+  void _updateCounterMap(int index, int counter) {
     setState(() {
-      counterMap['counter$index'] = counter;
+      _counterMap['counter$index'] = counter;
     });
   }
 
   void _resetCounterMap() {
     setState(() {
-      counterMap.forEach((key, value) => counterMap[key] = 0);
+      _counterMap.forEach((key, value) => _counterMap[key] = 0);
     });
   }
 
@@ -38,11 +39,11 @@ class _MainScreenState extends State<MainScreen> {
         child: Column(
           spacing: 16,
           children: [
-            for (int i = 1; i < counterMap.entries.length + 1; i++)
+            for (int i = 1; i < _counterMap.entries.length + 1; i++)
               CounterCard(
-                  getCounter: updateCounterMap,
+                  getCounter: _updateCounterMap,
                   index: i,
-                  value: counterMap.values.elementAt(i - 1)),
+                  value: _counterMap.values.elementAt(i - 1)),
             const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -53,7 +54,7 @@ class _MainScreenState extends State<MainScreen> {
                   style: TextStyle(fontSize: 16),
                 ),
                 Text(
-                  sum.toString(),
+                  _sum.toString(),
                   style: TextStyle(fontSize: 21, color: Colors.pink[200]),
                 )
               ],
