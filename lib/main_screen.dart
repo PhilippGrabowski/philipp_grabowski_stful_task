@@ -19,9 +19,9 @@ class _MainScreenState extends State<MainScreen> {
   int get _sum =>
       _counterMap.values.reduce((value, element) => value + element);
 
-  void _updateCounterMap(int index, int counter) {
+  void _updateCounterMap(int index) {
     setState(() {
-      _counterMap['counter$index'] = counter;
+      _counterMap['counter$index'] = _counterMap['counter$index']! + 1;
     });
   }
 
@@ -41,7 +41,7 @@ class _MainScreenState extends State<MainScreen> {
           children: [
             for (int i = 1; i < _counterMap.entries.length + 1; i++)
               CounterCard(
-                  getCounter: _updateCounterMap,
+                  getCounter: (i) => _updateCounterMap(i),
                   index: i,
                   value: _counterMap.values.elementAt(i - 1)),
             const SizedBox(height: 16),
