@@ -24,6 +24,12 @@ class _MainScreenState extends State<MainScreen> {
     });
   }
 
+  void _resetCounterMap() {
+    setState(() {
+      counterMap.forEach((key, value) => counterMap[key] = 0);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,10 +38,28 @@ class _MainScreenState extends State<MainScreen> {
         child: Column(
           spacing: 16,
           children: [
-            for (int i = 1; i < 6; i++)
-              CounterCard(getCounter: updateCounterMap, index: i),
+            for (int i = 1; i < counterMap.entries.length + 1; i++)
+              CounterCard(
+                  getCounter: updateCounterMap,
+                  index: i,
+                  value: counterMap.values.elementAt(i - 1)),
             const SizedBox(height: 16),
-            Text('Die Summe aller Counter ist: $sum')
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 8,
+              children: [
+                Text(
+                  'Die Summe aller Counter ist:',
+                  style: TextStyle(fontSize: 16),
+                ),
+                Text(
+                  sum.toString(),
+                  style: TextStyle(fontSize: 21, color: Colors.pink[200]),
+                )
+              ],
+            ),
+            ElevatedButton(
+                onPressed: _resetCounterMap, child: Text('Reset Counter'))
           ],
         ),
       ),
